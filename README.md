@@ -20,6 +20,22 @@ Nuestra arquitectura de microservicios se basa en la separación de responsabili
 - **SonarQube**: Herramienta utilizada para analizar la calidad del código y aplicar buenas prácticas en la implementación de los microservicios.
 - **JUnit**: Framework de pruebas unitarias que garantiza que cada microservicio funcione correctamente de forma independiente.
 
+### Organización en Multirepo
+
+Nuestra arquitectura de microservicios está organizada en un enfoque **Multirepo**, donde cada microservicio tiene su propio repositorio de código independiente. Este enfoque proporciona varias ventajas:
+
+- **Desarrollo Independiente**: Cada equipo o desarrollador puede trabajar en su microservicio de forma aislada, permitiendo diferentes ciclos de vida y versiones sin afectar a otros servicios.
+- **Facilidad de Despliegue**: Al estar desacoplados a nivel de repositorio, los microservicios pueden ser desplegados y versionados de manera independiente.
+- **Control Granular de CI/CD**: Los pipelines de CI/CD se definen por separado para cada repositorio, facilitando una mayor personalización y control sobre el proceso de integración continua.
+- **Manejo Simplificado de Dependencias**: Cada microservicio gestiona sus propias dependencias sin riesgo de interferir con otros servicios, lo que permite mayor flexibilidad en la adopción de nuevas tecnologías o librerías.
+
+### Interacciones entre Microservicios
+
+Los microservicios en nuestra arquitectura se comunican entre sí utilizando dos principales enfoques para la interacción sincrónica:
+
+- **WebClient (Spring WebFlux)**: Para llamadas no bloqueantes y asíncronas entre microservicios. WebClient nos permite realizar solicitudes HTTP con soporte para programación reactiva, mejorando la eficiencia y la capacidad de manejar un gran número de solicitudes simultáneas sin bloquear recursos.
+- **FeignClient**: Utilizado para realizar llamadas HTTP a otros microservicios de manera más declarativa. FeignClient se integra fácilmente con Spring Cloud y permite simplificar las interacciones entre microservicios utilizando anotaciones.
+
 ### Principios de Diseño
 
 - **Desacoplamiento**: Los microservicios están diseñados para ser completamente independientes, lo que facilita su despliegue y desarrollo sin afectar otros servicios.
@@ -41,10 +57,5 @@ Nuestra arquitectura de microservicios se basa en la separación de responsabili
 
 - **Complejidad de la Orquestación**: Gestionar múltiples microservicios implica desafíos adicionales en la configuración, orquestación y monitoreo, lo que es mitigado con el uso de Docker, Kubernetes y soluciones de CI/CD.
 - **Consistencia de Datos**: En una arquitectura distribuida, mantener la consistencia de datos entre microservicios puede ser complicado, por lo que implementamos estrategias como la consistencia eventual.
-
-### Herramientas de Monitorización y Trazabilidad
-
-- **Prometheus y Grafana**: Monitoreamos el rendimiento de los microservicios con Prometheus, mientras que Grafana proporciona dashboards interactivos para visualizar métricas clave.
-- **Zipkin**: Sistema de trazabilidad distribuida que ayuda a rastrear y depurar llamadas entre microservicios, identificando cuellos de botella en la comunicación.
 
 Esta combinación de tecnologías y principios de diseño nos permite construir un sistema robusto, escalable y eficiente que responde a las necesidades de nuestra organización.
